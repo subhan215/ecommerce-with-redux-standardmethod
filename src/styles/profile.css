@@ -1,0 +1,233 @@
+.ProfileComp {
+    display : flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    height: 30vh;
+    justify-content: center;
+  }
+  .profCompdiv1{
+    background:black;
+    display: flex;
+    padding: 20px;
+    justify-content: center;
+    
+   
+  }
+  .namep ,.emailp , .phoneNop {
+    margin: 0;
+    padding: 5px 0;
+   font-size: 17px;
+   background: url("../white\ smoke\ bg.jpg");
+   color: aqua;
+   font-weight: 600;
+  }
+  
+  .phoneNop{
+    padding-left: 60px;
+  }
+  .userDetails {
+    display: flex;
+  width: 720px;
+  justify-content: space-between;
+  background: url("../white\ smoke\ bg.jpg");
+  border: 1px solid whitesmoke;
+  align-items: center;
+  }
+  .signOutBtn , .updProfBtn , .crtPostBtn{
+    width: 200px;
+    background: url("../white\ smoke\ bg.jpg");
+    border-radius: 10px;
+    color: aqua;
+  
+  }
+  .crtPostBtn{
+    padding: 5px 10px ;
+    margin-top: 20px;
+  }
+  .modal-header,.modal-title{
+    background: black;
+    color: whitesmoke;
+    text-align: center;
+  } 
+  .modal-body{
+    background: black;
+    display: flex;
+  flex-direction: column;
+  align-items: center;
+  }
+  .modal-body .inputdiv{
+      display: flex;
+      flex-direction: column;
+      width: 300px;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 10px;
+  }
+ 
+.inputdiv input{
+    background: black;
+      width: 100%;
+      margin-bottom: 10px;
+      color: whitesmoke;
+      text-align: center;
+      padding: 5px 0;
+  }
+  .inputdiv input::placeholder{
+    color: whitesmoke;
+    font-weight: lighter;
+    
+  }
+ .postBtn , .updPostBtn{
+    background: black;
+     width: 100px;
+     border-radius: 10px;
+     font-weight: 600;
+     color: whitesmoke;
+    
+  } 
+  .updPostBtn {
+   width: 140px;
+   
+
+  }
+  .closeBtn{
+    background: url("../white\ smoke\ bg.jpg");
+    width: 150px;
+    border-radius: 10px;
+  }
+  .crtPostData{
+      display: flex;
+      flex-direction: column;
+      
+  }
+  .crtPostData h4{
+    background: url("../white\ smoke\ bg.jpg");
+    width: 80%;
+    margin-top: 10px;
+    padding: 5px 0;
+    color: whitesmoke;
+    padding-left: 20px;
+  }
+  .crtPostData p{
+      background:  url("../white\ smoke\ bg.jpg");
+      width:80%;
+      margin: 10px 0 10px 45px;
+      font-size: 17px;
+      color: whitesmoke;
+      padding-top: 5px;
+      padding-bottom: 5px;
+  }
+  .crtPostImg{
+      margin-top: 10px;
+      height: 200px;
+      width: 300px;
+  }
+  .postsDiv {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .postDiv{
+    width: 300px;
+    border: 2px solid black;
+    background:  black;
+    padding: 10px;
+    margin-top: 10px;
+   margin-left: 15px;
+  }
+  .postDivp1{
+    display: flex;
+    align-items: center;
+    background:  url("../white\ smoke\ bg.jpg");
+    border-bottom: 1px solid whitesmoke;
+    color: whitesmoke;
+    margin-bottom: 10px;
+    
+  }
+  .postDivp1 h1{
+    background:  url("../white\ smoke\ bg.jpg");
+  
+    
+  }
+  .iconsDiv{
+    display: flex;
+    width: 80px;
+    justify-content: space-between;
+    background:  url("../white\ smoke\ bg.jpg")
+  }
+  .postDiv h3 {
+   margin-top: 10px;
+    color: whitesmoke;
+   
+    
+  }
+   .postDiv h3 span {
+    border-bottom: 1px solid whitesmoke;
+    padding-bottom: 5px;
+  } 
+  .postDiv p{
+    margin-left: 0;
+   
+    background:  url("../white\ smoke\ bg.jpg");
+    font-size: 15px;
+    color: whitesmoke;
+   
+    padding: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+  }
+  .postDiv p span {
+    border-bottom: 1px solid whitesmoke;
+    padding-bottom: 5px;
+    
+  }
+
+  .postIcon ,.postDiv h3 , .postDiv h3 span , .postDiv p span  {
+    background:  url("../white\ smoke\ bg.jpg");
+  }
+  @media only screen and (max-width : 1190px){
+     .signOutBtn , .updProfBtn {
+       width: 100px;
+     }
+  }
+  @media only screen and (max-width : 990px){
+    .profCompdiv1{
+      flex-direction: column;
+      align-items: center;
+
+    }
+    .signOutBtn , .updProfBtn {
+      width: 150px;
+    }
+    .userDetails{
+      margin: 20px 0;
+      width: 100%;
+    }
+ }
+ @media only screen and (max-width : 730px){
+     .emailp , .phoneNop , .namep {
+       text-align: center;
+       padding-left: 0;
+     }
+ }
+ @media only screen and (max-width : 500px){
+  .userDetails {
+    flex-direction: column;
+  }
+ .postsDiv{
+   margin-top: 30px;
+ }
+}
+@media only screen and (max-width : 330px){
+ .modal-body .inputdiv , .crtPostImg{
+    width: 100%;
+  }
+}
+@media only screen and (max-width : 360px) {
+  .postDiv{
+    margin: 10px 10px;
+  }
+ 
+}
