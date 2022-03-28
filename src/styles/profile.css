@@ -5,6 +5,7 @@
     align-items: center;
     height: 30vh;
     justify-content: center;
+    
   }
   .profCompdiv1{
     background:black;
@@ -219,6 +220,9 @@
  .postsDiv{
    margin-top: 30px;
  }
+ .ProfileComp{
+   margin-top: 30px;
+ }
 }
 @media only screen and (max-width : 330px){
  .modal-body .inputdiv , .crtPostImg{
@@ -230,4 +234,9 @@
     margin: 10px 10px;
   }
  
+}
+@media only screen and (max-width : 250px) {
+  .postDiv{
+    margin-top: 20px;
+  }
 }

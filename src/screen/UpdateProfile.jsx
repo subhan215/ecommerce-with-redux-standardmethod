@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Modal } from 'react-bootstrap';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 import { updateName } from '../store/actions/profActions/updNameAction';
@@ -9,11 +9,12 @@ import { updatePhoneNo } from '../store/actions/profActions/updPhoneNoAction';
 import { updatePass } from '../store/actions/profActions/updPassAction';
 import ActionType from '../store/constant/constant';
 
-const UpdateProfile = (props) => {
+const UpdateProfile = () => {
+    const dispatch = useDispatch()
     useEffect(() => {
         let userData = JSON.parse(localStorage.getItem("logInUser"))
         console.log(userData)
-        props.dispatch({ type: ActionType.checkData, email: userData.email, password: userData.password, name: userData.name, uid: userData.uid, phoneNo: userData.phoneNo })
+        dispatch({ type: ActionType.checkData, email: userData.email, password: userData.password, name: userData.name, uid: userData.uid, phoneNo: userData.phoneNo })
     }, [])
     const [userData, setUserData] = useState({
         name: "",
@@ -50,7 +51,7 @@ const UpdateProfile = (props) => {
         setShowEmail(false)
     }
     const handleNameOpen = () => {
-        setUserData({ ...userData, name: props.checkName })
+        setUserData({ ...userData, name: checkName })
         setShowName(true)
     }
     const handlePassOpen = () => {
@@ -58,27 +59,29 @@ const UpdateProfile = (props) => {
         setShowPass(true)
     }
     const handlePhoneNoOpen = () => {
-        setUserData({ ...userData, phoneNo: props.checkPhoneNo })
+        setUserData({ ...userData, phoneNo: checkPhoneNo })
         setShowPhoneNo(true)
     }
     const handleEmailOpen = () => {
-        setUserData({ ...userData, email: props.checkEmail })
+        setUserData({ ...userData, email: checkEmail })
 
         setShowEmail(true)
     }
     const updNameFunc = () => {
-     props.dispatch(updateName(props.checkData , userData.name , props.checkUid))
+     dispatch(updateName(checkData , userData.name , checkUid))
     } 
     const updEmailFunc = () => {
-        props.dispatch(updateEmail(props.checkData , userData.email , props.checkUid))
+        dispatch(updateEmail(checkData , userData.email , checkUid))
     }
     
     const updPhoneNoFunc = () => {
-        props.dispatch(updatePhoneNo (props.checkData , userData.phoneNo , props.checkUid))
+        dispatch(updatePhoneNo (checkData , userData.phoneNo , checkUid))
     }
     const updPassFunc = () => {
-        props.dispatch(updatePass(props.checkData , userData.password ,props.checkPass , userData.updPass ,   props.checkUid))
+        dispatch(updatePass(checkData , userData.password ,checkPassword , userData.updPass ,   checkUid))
     }
+    const {checkEmail,checkName,checkUid,checkPhoneNo , checkPassword} = useSelector((state) => state.updProfReducer.checkData)
+    const {checkData } = useSelector((state ) =>  state.updProfReducer) 
     return (
         <div>
             <Modal
@@ -177,18 +180,7 @@ const UpdateProfile = (props) => {
         </div>
     );
 };
-const mapReduxStateToProps = (state) => {
-    return {
-        checkData : state.updProfReducer.checkData,
-        checkEmail: state.updProfReducer.checkData.email,
-        checkPass: state.updProfReducer.checkData.password,
-        checkName: state.updProfReducer.checkData.name,
-        checkUid: state.updProfReducer.checkData.uid,
-        checkPhoneNo: state.updProfReducer.checkData.phoneNo
-    }
-}
-const newUpdateProfile = connect(mapReduxStateToProps)(UpdateProfile)
 
-export default newUpdateProfile;
+export default UpdateProfile;
 
 
