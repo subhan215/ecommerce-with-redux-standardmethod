@@ -9,7 +9,7 @@ const savePost = (postData, checkUid, logInUid) => {
         if (oldPostData === null) {
             arr.push(postDb)
             localStorage.setItem("posts", JSON.stringify(arr));
-            dispatch({ type: ActionType.Posts, posts: arr })
+            dispatch({ type: ActionType.addPost, posts: arr })
         } else {
             oldPostData.push(postDb)
             localStorage.setItem("posts", JSON.stringify(oldPostData));
