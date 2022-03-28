@@ -1,33 +1,37 @@
 import React, { useEffect, useRef } from 'react';
-import { connect } from 'react-redux';
+import {  useDispatch, useSelector } from 'react-redux';
 import ActionType from '../store/constant/constant';
 import "../styles/profile.css"
 
-const Home = (props) => {
+const Home = () => {
+    const dispatch = useDispatch()
     useEffect(() => {
         let posts = JSON.parse(localStorage.getItem("posts"));
-        props.dispatch({ type: ActionType.Posts, posts: posts })
-    }, [])
-    let userData = JSON.parse(localStorage.getItem("logInUser"))
+        dispatch({ type: ActionType.Posts, posts: posts })
+        let userData = JSON.parse(localStorage.getItem("logInUser"))
     console.log(userData)
-    props.dispatch({ type: ActionType.checkData, email: userData.email, password: userData.password, name: userData.name, uid: userData.uid, phoneNo: userData.phoneNo })
-
+    dispatch({ type: ActionType.checkData, email: userData.email, password: userData.password, name: userData.name, uid: userData.uid, phoneNo: userData.phoneNo })
+    }, [])
+    
+    const { posts } = useSelector((state) => state.PostsReducer)
+    const { logInEmail,logInName,logInPhoneNo } = useSelector((state) => state.logInReducer.login)
+    const {checkEmail,checkName,checkPhoneNo} = useSelector((state) => state.updProfReducer.checkData)
     return (
         <div>
             <div className='ProfileComp'>
                 <div className='profCompdiv1'>
 
                     <div className='userDetails'>
-                        <p className='namep'>Name : {!props.loginName ? props.checkName : props.loginName}</p>
-                        <p className='emailp'>Email : {!props.loginEmail ? props.checkEmail : props.loginEmail}</p>
-                        <p className='phoneNop'>Phone No : {!props.logInPhoneNo ? props.checkPhoneNo : props.logInPhoneNo}</p>
+                        <p className='namep'>Name : {!logInName ? checkName : logInName}</p>
+                        <p className='emailp'>Email : {!logInEmail ? checkEmail : logInEmail}</p>
+                        <p className='phoneNop'>Phone No : {!logInPhoneNo ? checkPhoneNo : logInPhoneNo}</p>
                     </div>
 
                 </div>
 
             </div>
             <div className="postsDiv ">
-                {props.posts.map((val, ind) => {
+                {posts.map((val, ind) => {
                     return <div className='postDiv col-lg-4 col-md-6 col-sm-12'>
                         <div className='postDivp1'>
                             <h1>{
@@ -42,21 +46,5 @@ const Home = (props) => {
         </div>
     );
 };
-
-const mapReduxStateToProps = (state) => {
-    return {
-        loginEmail: state.logInReducer.login.email,
-        checkEmail: state.updProfReducer.checkData.email,
-        loginName: state.logInReducer.login.name,
-        checkName: state.updProfReducer.checkData.name,
-        posts: state.PostsReducer.posts,
-        checkUid: state.updProfReducer.checkData.uid,
-        logInUid: state.logInReducer.login.uid,
-        logInPhoneNo: state.logInReducer.login.phoneNo,
-        checkPhoneNo: state.updProfReducer.checkData.phoneNo
-    }
-}
-const newHome = connect(mapReduxStateToProps)(Home)
-
-export default newHome;
+export default Home;
 

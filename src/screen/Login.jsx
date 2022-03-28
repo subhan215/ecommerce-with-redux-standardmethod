@@ -1,10 +1,34 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { connect } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 import "../App.css"
 import { signIn } from '../store/actions/authActions/loginAction';
+import { useDispatch, useSelector } from 'react-redux';
+import { Modal } from 'react-bootstrap';
+import CircleLoader from './animationLoading/CircleLoader';
+import "../styles/loading.css"
+function Grid({ children }) {
+    const loadingStyle = {
+        background: "transparent"
+
+    }
+    return (
+        <div className="grid" style={loadingStyle}>
+            <LoadingBox>{children}</LoadingBox>
+        </div>
+    )
+}
+
+function LoadingBox({ children }) {
+    const loadingStyle = {
+        background: "transparent"
+    }
+    return React.Children.map(children, child => {
+        return <div className="loading-box" style={loadingStyle}>{child}</div>
+    })
+}
+
 const useKey = (key, cb) => {
     const callBackRef = useRef(cb);
 
@@ -22,25 +46,39 @@ const useKey = (key, cb) => {
         return () => document.removeEventListener("keypress", handle)
     }, [key])
 }
-const Login = (props) => {
+const Login = () => {
+
+    const dispatch = useDispatch()
+    const { loading } = useSelector((state) => state.loadingReducer)
     const handleEnter = () => {
-        signIn()
+        signInFunc()
     }
     useKey("Enter", handleEnter)
     const navigate = useNavigate()
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
     const [userDetails, setUserDetails] = useState({ email: "", password: "", uid: "" })
     const [showInpPass, setShowInpPass] = useState(false)
     const passValid = () => {
         !showInpPass ? setShowInpPass(true) : setShowInpPass(false)
     }
     const signInFunc = () => {
-        props.dispatch(signIn(userDetails.email , userDetails.password , navigate ))
+        dispatch(signIn(userDetails.email, userDetails.password, navigate, handleShow, handleClose))
     }
 
+    return <>
 
+        <Modal show={show} onHide={handleClose} animation={false} style={{ background: "linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5))" }} >
+            <div  >
+                <Grid >
+                    <CircleLoader />
+                </Grid>
+            </div>
+        </Modal>
 
-    return (
-        <section>
+        < section >
             <h1 className="mainh1">Log In</h1>
             <form>
                 <input type="text" placeholder='Enter your email' onChange={(val) => setUserDetails({ ...userDetails, email: val.target.value })} />
@@ -60,10 +98,8 @@ const Login = (props) => {
             <button type="button" className="btn btn-primary mybtn signupbtn" data-toggle="modal" data-target="#exampleModal">
                 <NavLink to="/signup" style={{ background: "transparent", color: "whitesmoke", textDecoration: "none" }}>Sign Up</NavLink>
             </button>
-        </section>
-    );
-};
+        </section >
 
-const newLogIn = connect()(Login)
-
-export default newLogIn;
+    </>
+}
+export default Login
